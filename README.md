@@ -2,7 +2,7 @@
 
 O **SGCT** é um sistema web simples e funcional, desenvolvido com HTML, CSS e JavaScript puro, que permite o gerenciamento de chamados técnicos de forma organizada, rápida e intuitiva.
 
-## 🎯 Objetivo
+## 🙅🏻 Objetivo
 
 Facilitar a visualização, edição e acompanhamento de chamados técnicos por parte da equipe de suporte, através de uma interface leve com recursos práticos como:
 
