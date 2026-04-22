@@ -20,23 +20,29 @@ function buscarPorEmailSenha(email, senha, callback) {
 }
 
 function criarChamado(titulo, descricao, prioridade, email, categoriaNome, callback) {
-  // Buscar ID do usuário pelo email
+  // 1. Buscar ID do usuário (Verifique se no banco é 'usuario' ou 'usuarios')
   const queryUsuario = 'SELECT id_usuario FROM usuario WHERE email = ?';
+  
   db.query(queryUsuario, [email], (err, resultsUsuario) => {
     if (err) return callback(err);
     if (resultsUsuario.length === 0) return callback(new Error("Usuário não encontrado"));
 
     const usuarioId = resultsUsuario[0].id_usuario;
 
-    // Buscar ID da categoria pelo nome (value)
-    const queryCategoria = 'SELECT id_categoria FROM categoria WHERE nome = ?';
+    // 2. BUSCA DA CATEGORIA (Ajustado para o que criamos no MySQL)
+    const queryCategoria = 'SELECT id FROM categorias WHERE nome = ?'; // Tabela 'categorias', coluna 'id'
+    
     db.query(queryCategoria, [categoriaNome], (err, resultsCategoria) => {
       if (err) return callback(err);
-      if (resultsCategoria.length === 0) return callback(new Error("Categoria não encontrada"));
+      
+      if (resultsCategoria.length === 0) {
+        console.log("Categoria buscada e não achada:", categoriaNome);
+        return callback(new Error("Categoria não encontrada"));
+      }
 
-      const categoriaId = resultsCategoria[0].id_categoria;
+      const categoriaId = resultsCategoria[0].id; // Pegando 'id' em vez de 'id_categoria'
 
-      // Inserir o chamado
+      // 3. INSERIR CHAMADO (Verifique se no banco a tabela é 'chamado' ou 'chamados')
       const queryInsert = 'INSERT INTO chamado (titulo, descricao, prioridade, usuario_id, categoria_id) VALUES (?, ?, ?, ?, ?)';
       db.query(queryInsert, [titulo, descricao, prioridade, usuarioId, categoriaId], callback);
     });
