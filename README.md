@@ -21,9 +21,8 @@ O sistema utiliza o banco de dados `sistema_sgct`. Siga os passos abaixo para co
 2. Crie o Banco e a Estrutura:
 (Copie e cole os blocos abaixo na ordem apresentada para evitar erros de chaves estrangeiras):
 
-```text
+
 ```sql
-SQL
 CREATE DATABASE sistema_sgct;
 USE sistema_sgct;
 
@@ -61,9 +60,7 @@ CREATE TABLE chamado (
 3. Alimente as Categorias (Obrigatório):
 Execute o comando abaixo para que o formulário de abertura de chamados funcione corretamente:
 
-```text
 ```sql
-SQL
 INSERT INTO categorias (nome) VALUES 
 ('erro_sistema'), ('manutencao_preventiva'), ('manutencao_corretiva'),
 ('instalacao_software'), ('atualizacao_sistema'), ('configuracao_rede'),
