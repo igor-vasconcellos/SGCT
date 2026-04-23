@@ -21,11 +21,14 @@ O sistema utiliza o banco de dados `sistema_sgct`. Siga os passos abaixo para co
 2. Crie o Banco e a Estrutura:
 (Copie e cole os blocos abaixo na ordem apresentada para evitar erros de chaves estrangeiras):
 
+```text
+```sql
 SQL
 CREATE DATABASE sistema_sgct;
 USE sistema_sgct;
 
 -- 1. Tabela de Categorias
+
 CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
@@ -53,28 +56,34 @@ CREATE TABLE chamado (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
     FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
+```
 
 3. Alimente as Categorias (Obrigatório):
 Execute o comando abaixo para que o formulário de abertura de chamados funcione corretamente:
 
+```text
+```sql
 SQL
 INSERT INTO categorias (nome) VALUES 
 ('erro_sistema'), ('manutencao_preventiva'), ('manutencao_corretiva'),
 ('instalacao_software'), ('atualizacao_sistema'), ('configuracao_rede'),
 ('backup_recuperacao'), ('duvida_usuario'), ('acesso_bloqueado');
+```
 
 ⚙️ Instalação e Execução
 1. Instale as dependências do projeto:
 
-Bash
+```bash
 npm install
+```
 2. Configuração de Conexão:
 Certifique-se de que o arquivo database.js está configurado com o usuário root e o banco sistema_sgct.
 
 3. Inicie o servidor:
 
-Bash
+```bash
 node server.js
+```
 4. Acesse no Navegador:
 http://localhost:3000
 
@@ -87,7 +96,7 @@ Senha: admin123
 
 (Caso precise criar manualmente):
 
-SQL
+```SQL
 INSERT INTO usuario (nome, email, senha, tipo) 
 VALUES ('Administrador', 'admin@teste.com', 'admin123', 'adm');
 
@@ -97,7 +106,7 @@ VALUES ('Administrador', 'admin@teste.com', 'admin123', 'adm');
 /controllers: Lógica de controle e processamento de dados.
 /models: Funções de comunicação e consultas SQL.
 server.js: Arquivo principal de inicialização do servidor.
-
+```
 ---
 ## 🖼️ Preview do Design
 
