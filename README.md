@@ -1,40 +1,37 @@
-Com certeza! Aqui está a versão final e corrigida do seu README.md. Este arquivo está estruturado para que qualquer pessoa (ou você mesmo no futuro) consiga colocar o sistema de pé rapidamente, com atenção especial à configuração do banco de dados que acabámos de ajustar.
+# 🚀 Sistema de Gerenciamento de Chamados (SGCT)
 
-🚀 Sistema de Gerenciamento de Chamados (SGCT)
-Este é um sistema full-stack desenvolvido para a abertura e gestão de chamados técnicos. O projeto utiliza Node.js no backend e MySQL para armazenamento persistente de dados.
+O **SGCT** é uma solução full-stack para abertura, monitoramento e gestão de chamados técnicos. Desenvolvido com **Node.js** e **MySQL**, o sistema permite o controle eficiente de incidentes e solicitações de suporte.
 
-📋 Funcionalidades
-Login e Cadastro de utilizadores com níveis de acesso (cliente, tec, adm).
+## 📋 Funcionalidades
+- **Autenticação de Usuários:** Sistema de login com persistência de sessão.
+- **Níveis de Acesso:** Controle de permissões para `cliente`, `tec` (Técnico) e `adm` (Administrador).
+- **Gestão de Chamados:** Abertura de tickets com prioridades e categorias dinâmicas.
+- **Dashboard Estatístico:** Resumo em tempo real da quantidade de chamados abertos, em andamento e concluídos.
 
-Abertura de chamados com categorização dinâmica.
+---
 
-Dashboard com resumo de chamados em tempo real.
+## 🛠️ Configuração do Banco de Dados (MySQL)
 
-Sistema de sessão para segurança das rotas.
+O sistema utiliza o banco de dados `sistema_sgct`. Siga os passos abaixo para configurar a estrutura corretamente:
 
-🛠️ Configuração do Banco de Dados (MySQL)
-O banco de dados é a peça central deste sistema. Siga os passos abaixo para configurar o ambiente:
+1. **Acesse o terminal do MySQL:**
+   ```bash
+   sudo mysql -u root -p
 
-Aceda ao terminal do MySQL:
-
-Bash
-sudo mysql -u root -p
-Crie e selecione o banco de dados:
+2. Crie o Banco e a Estrutura:
+(Copie e cole os blocos abaixo na ordem apresentada para evitar erros de chaves estrangeiras):
 
 SQL
 CREATE DATABASE sistema_sgct;
 USE sistema_sgct;
-Crie a estrutura das tabelas:
-(Copie e cole este bloco para criar as tabelas na ordem correta devido às chaves estrangeiras):
 
-SQL
 -- 1. Tabela de Categorias
 CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
 );
 
--- 2. Tabela de Utilizadores
+-- 2. Tabela de Usuários
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -56,50 +53,50 @@ CREATE TABLE chamado (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
     FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
-Popule as categorias (Obrigatório):
-Para que o formulário de abertura de chamados funcione, os nomes devem ser idênticos aos values do HTML:
+
+3. Alimente as Categorias (Obrigatório):
+Execute o comando abaixo para que o formulário de abertura de chamados funcione corretamente:
 
 SQL
 INSERT INTO categorias (nome) VALUES 
 ('erro_sistema'), ('manutencao_preventiva'), ('manutencao_corretiva'),
 ('instalacao_software'), ('atualizacao_sistema'), ('configuracao_rede'),
 ('backup_recuperacao'), ('duvida_usuario'), ('acesso_bloqueado');
-⚙️ Instalação e Execução
-Clone o repositório:
 
-Bash
-git clone https://github.com/seu-usuario/SGCT.git
-cd SGCT
-Instale as dependências:
+⚙️ Instalação e Execução
+1. Instale as dependências do projeto:
 
 Bash
 npm install
-Configure as credenciais do banco:
-Verifique o arquivo database.js e confirme se o user, password e o database (sistema_sgct) coincidem com o seu ambiente.
+2. Configuração de Conexão:
+Certifique-se de que o arquivo database.js está configurado com o usuário root e o banco sistema_sgct.
 
-Inicie o servidor:
+3. Inicie o servidor:
 
 Bash
 node server.js
-Aceda ao sistema:
-Abra o navegador em http://localhost:3000.
+4. Acesse no Navegador:
+http://localhost:3000
 
-🔑 Credenciais de Administrador
-Caso precise de um acesso de administrador para testar as funcionalidades de técnico, execute este comando no MySQL:
+🔑 Credenciais de Teste (Administrador)
+Para acessar as funcionalidades administrativas e de técnico, utilize ou crie este usuário:
+
+E-mail: admin@teste.com
+
+Senha: admin123
+
+(Caso precise criar manualmente):
 
 SQL
 INSERT INTO usuario (nome, email, senha, tipo) 
-VALUES ('Admin', 'admin@teste.com', 'admin123', 'adm');
+VALUES ('Administrador', 'admin@teste.com', 'admin123', 'adm');
+
 📂 Estrutura de Pastas
-/public: Interface web (HTML, CSS e JS cliente).
-
-/routes: Definição das rotas e middlewares de autenticação.
-
-/controllers: Lógica de processamento das requisições.
-
-/models: Funções de interação direta com o banco de dados (Queries SQL).
-
-server.js: Arquivo principal de configuração do servidor Express.
+/public: Interface do usuário (HTML, CSS e JavaScript do cliente).
+/routes: Definição de rotas e middlewares de autenticação.
+/controllers: Lógica de controle e processamento de dados.
+/models: Funções de comunicação e consultas SQL.
+server.js: Arquivo principal de inicialização do servidor.
 
 ---
 ## 🖼️ Preview do Design
